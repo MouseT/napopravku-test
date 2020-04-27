@@ -1,0 +1,85 @@
+extends layout/main
+
+block variables
+	-var title = 'На поправку'
+
+block content
+	.container
+		h1.page-title Информация о пациентах
+		main.main
+			.main__img
+			h2.main__title Заполните свой профиль и получите 100 баллов
+			p.main__subtitle Заполните базовую информацию о себе, чтобы мы могли подбирать для вас интересные акции и статьи. Информация о пациенте используется только для автозаполнения формы записи и не видна другим пользователям.
+			button.btn.main__btn.js-open-modal Перейти к заполнению
+				span +100
+
+block modal
+	.modal
+		.modal__cross.js-modal-close
+		form.form(action="/" method="post")
+			h3.modal__title Личные данные
+			p.modal__subtitle Факторы риска
+			.modal__description Эта информация поможет разработать для вас индивидуальный план регулярных обследований, подбирать акции и полезные статьи
+			.modal__radioblock.form-group
+				label.label-title Курение
+				fieldset
+					.custom-control.custom-radio
+						input.custom-control-input(type="radio", name="smoking", value="Не курю", id="smoke") 
+						label.custom-control-label(for="smoke")  Не курю
+					.custom-control.custom-radio
+						input.custom-control-input(type="radio", name="smoking", value="Курю", id="notsmoke") 
+						label.custom-control-label(for="notsmoke")  Курю
+					.custom-control.custom-radio
+						input.custom-control-input(type="radio", name="smoking", value="Бросил(а)", , id="quit") 
+						label.custom-control-label(for="quit")  Бросил(а)
+			.form-group.form-group--cronical
+				label.label-title Хронические заболевания
+				fieldset.app
+					input.form-control(v-on:keyup.enter.submit.prevent="add" v-model="input" type="text" placeholder="Начните вводить название" name="chronical")
+					.deseases
+						p.desease(v-for="desease in deseases") {{ desease }}
+							span.remove(v-on:click="remove(desease)")
+			.form-group
+				label.label-title.label-title--modified Наследственность
+				p.sublabel Какие из этих болезней были у ваших ближайших родственников (родителей, братьев, сестёр, бабушек, дедушек)? Это может влиять на вашу предрасположенность
+				.genetics
+					.men
+						label.label-title Мужчины
+						.custom-control.custom-checkbox
+							input.custom-control-input(type="checkbox" id="m1")
+							label.custom-control-label(for="m1")  Диабет
+						.custom-control.custom-checkbox
+							input.custom-control-input(type="checkbox" id="m2")
+							label.custom-control-label(for="m2")  Гипертония
+						.custom-control.custom-checkbox
+							input.custom-control-input(type="checkbox" id="m3")
+							label.custom-control-label(for="m3")  Рак простаты
+						.custom-control.custom-checkbox
+							input.custom-control-input(type="checkbox" id="m4")
+							label.custom-control-label(for="m4")  Рак толстого кишечника
+						.custom-control.custom-checkbox
+							input.custom-control-input(type="checkbox" id="m5")
+							label.custom-control-label(for="m5")  Меланома кожи 
+					.women
+						label.label-title Женщины
+						.custom-control.custom-checkbox
+							input.custom-control-input(type="checkbox" id="w1")
+							label.custom-control-label(for="w1")  Диабет
+						.custom-control.custom-checkbox
+							input.custom-control-input(type="checkbox" id="w2")
+							label.custom-control-label(for="w2")  Гипертония
+						.custom-control.custom-checkbox
+							input.custom-control-input(type="checkbox" id="w3")
+							label.custom-control-label(for="w3")  Рак молочной железы
+						.custom-control.custom-checkbox
+							input.custom-control-input(type="checkbox" id="w4")
+							label.custom-control-label(for="w4")  Рак шейки матки
+						.custom-control.custom-checkbox
+							input.custom-control-input(type="checkbox" id="w5")
+							label.custom-control-label(for="w5")  Рак яичников
+			|
+			hr
+			|		
+			input(type="submit" value="Добавить")
+	.overlay#overlay-modal
+					
